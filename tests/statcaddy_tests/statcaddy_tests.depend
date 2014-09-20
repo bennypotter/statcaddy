@@ -1,0 +1,203 @@
+# depslib dependency file v1.0
+1411229536 source:/home/ben/git/statcaddy/tests/gt_trial.cpp
+	"gtest/gtest.h"
+	"databasehelper.h"
+	<iostream>
+
+1379497710 /home/ben/git/statcaddy/tests/gtest-1.7.0/include/gtest/gtest.h
+	<limits>
+	<ostream>
+	<vector>
+	"gtest/internal/gtest-internal.h"
+	"gtest/internal/gtest-string.h"
+	"gtest/gtest-death-test.h"
+	"gtest/gtest-message.h"
+	"gtest/gtest-param-test.h"
+	"gtest/gtest-printers.h"
+	"gtest/gtest_prod.h"
+	"gtest/gtest-test-part.h"
+	"gtest/gtest-typed-test.h"
+	"gtest/gtest_pred_impl.h"
+
+1379497710 /home/ben/git/statcaddy/tests/gtest-1.7.0/include/gtest/internal/gtest-internal.h
+	"gtest/internal/gtest-port.h"
+	<stdlib.h>
+	<sys/types.h>
+	<sys/wait.h>
+	<unistd.h>
+	<stdexcept>
+	<ctype.h>
+	<float.h>
+	<string.h>
+	<iomanip>
+	<limits>
+	<set>
+	"gtest/gtest-message.h"
+	"gtest/internal/gtest-string.h"
+	"gtest/internal/gtest-filepath.h"
+	"gtest/internal/gtest-type-util.h"
+
+1379497710 /home/ben/git/statcaddy/tests/gtest-1.7.0/include/gtest/internal/gtest-port.h
+	<ctype.h>
+	<stddef.h>
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<sys/types.h>
+	<sys/stat.h>
+	<AvailabilityMacros.h>
+	<TargetConditionals.h>
+	<iostream>
+	<sstream>
+	<string>
+	<unistd.h>
+	<strings.h>
+	<direct.h>
+	<io.h>
+	<android/api-level.h>
+	<regex.h>
+	<typeinfo>
+	<pthread.h>
+	<time.h>
+	"gtest/internal/gtest-tuple.h"
+	<tuple>
+	<tuple>
+	<tr1/tuple>
+	<tr1/tuple>
+	<tuple>
+	<vector>
+
+1379497710 /home/ben/git/statcaddy/tests/gtest-1.7.0/include/gtest/internal/gtest-tuple.h
+	<utility>
+
+1379497710 /home/ben/git/statcaddy/tests/gtest-1.7.0/include/gtest/gtest-message.h
+	<limits>
+	"gtest/internal/gtest-port.h"
+
+1379497710 /home/ben/git/statcaddy/tests/gtest-1.7.0/include/gtest/internal/gtest-string.h
+	<mem.h>
+	<string.h>
+	<string>
+	"gtest/internal/gtest-port.h"
+
+1379497710 /home/ben/git/statcaddy/tests/gtest-1.7.0/include/gtest/internal/gtest-filepath.h
+	"gtest/internal/gtest-string.h"
+
+1379497710 /home/ben/git/statcaddy/tests/gtest-1.7.0/include/gtest/internal/gtest-type-util.h
+	"gtest/internal/gtest-port.h"
+	<cxxabi.h>
+	<acxx_demangle.h>
+
+1379497710 /home/ben/git/statcaddy/tests/gtest-1.7.0/include/gtest/gtest-death-test.h
+	"gtest/internal/gtest-death-test-internal.h"
+
+1379497710 /home/ben/git/statcaddy/tests/gtest-1.7.0/include/gtest/internal/gtest-death-test-internal.h
+	"gtest/internal/gtest-internal.h"
+	<stdio.h>
+
+1379497710 /home/ben/git/statcaddy/tests/gtest-1.7.0/include/gtest/gtest-param-test.h
+	"gtest/internal/gtest-port.h"
+	<utility>
+	"gtest/internal/gtest-internal.h"
+	"gtest/internal/gtest-param-util.h"
+	"gtest/internal/gtest-param-util-generated.h"
+
+1379497710 /home/ben/git/statcaddy/tests/gtest-1.7.0/include/gtest/internal/gtest-param-util.h
+	<iterator>
+	<utility>
+	<vector>
+	"gtest/internal/gtest-internal.h"
+	"gtest/internal/gtest-linked_ptr.h"
+	"gtest/internal/gtest-port.h"
+	"gtest/gtest-printers.h"
+
+1379497710 /home/ben/git/statcaddy/tests/gtest-1.7.0/include/gtest/internal/gtest-linked_ptr.h
+	<stdlib.h>
+	<assert.h>
+	"gtest/internal/gtest-port.h"
+
+1379497710 /home/ben/git/statcaddy/tests/gtest-1.7.0/include/gtest/gtest-printers.h
+	<ostream>
+	<sstream>
+	<string>
+	<utility>
+	<vector>
+	"gtest/internal/gtest-port.h"
+	"gtest/internal/gtest-internal.h"
+
+1379497710 /home/ben/git/statcaddy/tests/gtest-1.7.0/include/gtest/internal/gtest-param-util-generated.h
+	"gtest/internal/gtest-param-util.h"
+	"gtest/internal/gtest-port.h"
+
+1379497710 /home/ben/git/statcaddy/tests/gtest-1.7.0/include/gtest/gtest_prod.h
+
+1379497710 /home/ben/git/statcaddy/tests/gtest-1.7.0/include/gtest/gtest-test-part.h
+	<iosfwd>
+	<vector>
+	"gtest/internal/gtest-internal.h"
+	"gtest/internal/gtest-string.h"
+
+1379497710 /home/ben/git/statcaddy/tests/gtest-1.7.0/include/gtest/gtest-typed-test.h
+	"gtest/internal/gtest-port.h"
+	"gtest/internal/gtest-type-util.h"
+
+1379497710 /home/ben/git/statcaddy/tests/gtest-1.7.0/include/gtest/gtest_pred_impl.h
+
+1411229311 /home/ben/git/statcaddy/database/databaseHelper/databasehelper.h
+	<include/sqlite3.h>
+	<string>
+	<include/GolfObject.h>
+	<include/Hole.h>
+	<include/GolfCourse.h>
+	<include/PlayedHole.h>
+	<include/Shot.h>
+	<include/Player.h>
+	<include/Round.h>
+	<include/LinkedList.h>
+
+1409164146 /home/ben/git/statcaddy/database/databaseHelper/include/sqlite3.h
+	<stdarg.h>
+
+1409164146 /home/ben/git/statcaddy/database/databaseHelper/include/GolfObject.h
+	<LinkedList.h>
+
+1409164146 /home/ben/git/statcaddy/database/databaseHelper/include/LinkedList.h
+	<iostream>
+
+1409164146 /home/ben/git/statcaddy/database/databaseHelper/include/Hole.h
+	<GolfObject.h>
+	<stdio.h>
+	<stdlib.h>
+	<string>
+	<LinkedList.h>
+
+1409164146 /home/ben/git/statcaddy/database/databaseHelper/include/GolfCourse.h
+	<GolfObject.h>
+	<string>
+
+1409164146 /home/ben/git/statcaddy/database/databaseHelper/include/PlayedHole.h
+	<GolfObject.h>
+	<Hole.h>
+	<Round.h>
+
+1409164146 /home/ben/git/statcaddy/database/databaseHelper/include/Round.h
+	<GolfObject.h>
+	<string>
+	<GolfCourse.h>
+
+1409164146 /home/ben/git/statcaddy/database/databaseHelper/include/Shot.h
+	<GolfObject.h>
+	<PlayedHole.h>
+	<string>
+
+1409164146 /home/ben/git/statcaddy/database/databaseHelper/include/Player.h
+	<GolfObject.h>
+	"LinkedList.h"
+	"PlayedHole.h"
+	<string>
+
+1411236171 source:/home/ben/git/statcaddy/tests/statcaddy_tests/main.cpp
+	"gtest/gtest.h"
+	"databasehelper.h"
+	<iostream>
+
