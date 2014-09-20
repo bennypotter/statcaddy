@@ -1,0 +1,73 @@
+CREATE TABLE Hole
+(
+h_Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+gc_Id INTEGER NOT NULL,
+par INTEGER NOT NULL,
+strokeIndex INTEGER NOT NULL,
+yards INTEGER NOT NULL,
+holeNum INTEGER NOT NULL,
+shape varchar(255) NOT NULL,
+FOREIGN KEY (gc_Id) REFERENCES golfCourse(gc_Id)
+);
+CREATE TABLE PlayedHole
+(
+ph_Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+gross INTEGER NOT NULL,
+nett INTEGER NOT NULL,
+points INTEGER NOT NULL,
+h_Id INTEGER NOT NULL,
+r_Id INTEGER NOT NULL, fairwayHit tinyint, greenHit tinyint, sandSave tinyint, upAndDown tinyint, putts INTEGER,
+FOREIGN KEY (h_Id) REFERENCES Hole(h_Id),
+FOREIGN KEY (r_Id) REFERENCES Round(r_Id));
+CREATE TABLE Player
+(
+p_Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+firstName varchar(255) NOT NULL,
+lastName varchar(255) NOT NULL,
+handicap INTEGER NOT NULL);
+CREATE TABLE Round
+(
+r_Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+time DATETIME NOT NULL,
+date DATETIME NOT NULL,
+gross INTEGER NOT NULL,
+nett INTEGER NOT NULL,
+stableford INTEGER NOT NULL,
+weather varchar(255) NOT NULL,
+p_Id INTEGER NOT NULL,
+gc_Id INTEGER NOT NULL,
+FOREIGN KEY (p_Id) REFERENCES Player (p_Id),
+FOREIGN KEY (gc_Id) REFERENCES golfCourse (gc_Id)
+);
+CREATE TABLE Shot
+(
+s_Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+club varchar(255) NOT NULL,
+lie varchar(255) NOT NULL,
+gfg tinyint(1) NOT NULL,
+start varchar(255) NOT NULL,
+finish varchar(255) NOT NULL,
+wind varchar(255) NOT NULL,
+ph_Id INTEGER NOT NULL,
+FOREIGN KEY (ph_Id) REFERENCES PlayedHole(ph_Id)
+);
+CREATE TABLE golfCourse (
+gc_Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 
+strokeIndex int, 
+par int, 
+name varchar(255), 
+addL1 varchar(255), 
+addL2 varchar(255), 
+postcode varchar(255));
+CREATE TABLE test(
+  r_Id INT,
+  time NUM,
+  date NUM,
+  gross INT,
+  nett INT,
+  stableford INT,
+  weather TEXT,
+  p_Id INT,
+  gc_Id INT
+);
+

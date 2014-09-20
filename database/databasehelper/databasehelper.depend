@@ -1,0 +1,189 @@
+# depslib dependency file v1.0
+1411235359 source:/home/ben/git/statcaddy/database/databasehelper/databasehelper.cpp
+	"databasehelper.h"
+	<stdio.h>
+	<stdlib.h>
+	<iostream>
+	<sstream>
+	<cstring>
+
+1411235356 /home/ben/git/statcaddy/database/databasehelper/databasehelper.h
+	<sqlite3.h>
+	<string>
+	<include/GolfObject.h>
+	<include/Hole.h>
+	<include/GolfCourse.h>
+	<include/PlayedHole.h>
+	<include/Shot.h>
+	<include/Player.h>
+	<include/Round.h>
+	<include/LinkedList.h>
+
+1388681526 /usr/include/sqlite3.h
+	<stdarg.h>
+
+1409164146 /home/ben/git/statcaddy/database/databasehelper/include/GolfObject.h
+	<LinkedList.h>
+
+1409164146 /home/ben/git/statcaddy/database/databasehelper/include/LinkedList.h
+	<iostream>
+
+1409164146 /home/ben/git/statcaddy/database/databasehelper/include/Hole.h
+	<GolfObject.h>
+	<stdio.h>
+	<stdlib.h>
+	<string>
+	<LinkedList.h>
+
+1409205521 /usr/include/stdio.h
+	<features.h>
+	<stddef.h>
+	<bits/types.h>
+	<libio.h>
+	<stdarg.h>
+	<bits/stdio_lim.h>
+	<bits/sys_errlist.h>
+	<getopt.h>
+	<bits/stdio.h>
+	<bits/stdio2.h>
+	<bits/stdio-ldbl.h>
+
+1409205502 /usr/include/features.h
+	<stdc-predef.h>
+	<sys/cdefs.h>
+	<gnu/stubs.h>
+
+1409205502 /usr/include/stdc-predef.h
+
+1409205521 /usr/include/libio.h
+	<_G_config.h>
+	<stdarg.h>
+	<sys/cdefs.h>
+	<bits/stdio-lock.h>
+	<shlib-compat.h>
+	<bits/libio-ldbl.h>
+
+1409205521 /usr/include/_G_config.h
+	<bits/types.h>
+	<stddef.h>
+	<wchar.h>
+	<gconv.h>
+
+1409205524 /usr/include/wchar.h
+	<features.h>
+	<stdio.h>
+	<stdarg.h>
+	<bits/wchar.h>
+	<stddef.h>
+	<wctype.h>
+	<xlocale.h>
+	<xlocale.h>
+	<xlocale.h>
+	<wctype.h>
+	<bits/wchar2.h>
+	<bits/wchar-ldbl.h>
+
+1409205529 /usr/include/wctype.h
+	<features.h>
+	<bits/types.h>
+	<wchar.h>
+	<endian.h>
+	<xlocale.h>
+
+1409205524 /usr/include/endian.h
+	<features.h>
+	<bits/endian.h>
+	<bits/byteswap.h>
+
+1409205503 /usr/include/xlocale.h
+
+1409205503 /usr/include/gconv.h
+	<features.h>
+	<wchar.h>
+	<stddef.h>
+
+1409205526 /usr/include/getopt.h
+	<ctype.h>
+
+1409205516 /usr/include/ctype.h
+	<features.h>
+	<bits/types.h>
+	<endian.h>
+	<xlocale.h>
+
+1409205520 /usr/include/stdlib.h
+	<features.h>
+	<stddef.h>
+	<bits/waitflags.h>
+	<bits/waitstatus.h>
+	<xlocale.h>
+	<sys/types.h>
+	<alloca.h>
+	<bits/stdlib-bsearch.h>
+	<bits/stdlib-float.h>
+	<bits/stdlib.h>
+	<bits/stdlib-ldbl.h>
+
+1409205520 /usr/include/alloca.h
+	<features.h>
+	<stddef.h>
+
+1409164146 /home/ben/git/statcaddy/database/databasehelper/include/GolfCourse.h
+	<GolfObject.h>
+	<string>
+
+1409164146 /home/ben/git/statcaddy/database/databasehelper/include/PlayedHole.h
+	<GolfObject.h>
+	<Hole.h>
+	<Round.h>
+
+1409164146 /home/ben/git/statcaddy/database/databasehelper/include/Round.h
+	<GolfObject.h>
+	<string>
+	<GolfCourse.h>
+
+1409164146 /home/ben/git/statcaddy/database/databasehelper/include/Shot.h
+	<GolfObject.h>
+	<PlayedHole.h>
+	<string>
+
+1409164146 /home/ben/git/statcaddy/database/databasehelper/include/Player.h
+	<GolfObject.h>
+	"LinkedList.h"
+	"PlayedHole.h"
+	<string>
+
+1409164145 source:/home/ben/git/statcaddy/database/databasehelper/src/GolfCourse.cpp
+	"GolfCourse.h"
+	<stdlib.h>
+	<iostream>
+
+1409164145 source:/home/ben/git/statcaddy/database/databasehelper/src/GolfObject.cpp
+	"GolfObject.h"
+
+1409164145 source:/home/ben/git/statcaddy/database/databasehelper/src/Hole.cpp
+	"Hole.h"
+	<cstring>
+
+1409164145 source:/home/ben/git/statcaddy/database/databasehelper/src/PlayedHole.cpp
+	"PlayedHole.h"
+
+1410625521 source:/home/ben/git/statcaddy/database/databasehelper/src/Player.cpp
+	"Player.h"
+	<stdlib.h>
+	<stdio.h>
+	<cstring>
+	<string>
+	<iostream>
+	"Round.h"
+	"databasehelper.h"
+
+1409164145 source:/home/ben/git/statcaddy/database/databasehelper/src/Round.cpp
+	"Round.h"
+	"Player.h"
+	<stdlib.h>
+
+1409164145 source:/home/ben/git/statcaddy/database/databasehelper/src/Shot.cpp
+	"Shot.h"
+	<stdlib.h>
+
