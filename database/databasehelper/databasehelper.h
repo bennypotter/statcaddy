@@ -26,7 +26,10 @@ public:
     LinkedList<GolfObject>* getHolesByCourse(string&, Hole*);
     void addHole(Hole &h);
     void getHoleById(int id, Hole* h);
+    void deleteHole(Hole &h);
     //PlayedHoles
+    void addPlayedHole(PlayedHole &ph);
+    void deletePlayedHole(PlayedHole &ph);
     LinkedList<GolfObject>* getPlayedHolesByHole(int id, PlayedHole*);
     LinkedList<GolfObject>* getPlayedHolesByRound(int id, PlayedHole*);
     void getPlayedHoleById(int id, PlayedHole*);
@@ -36,6 +39,8 @@ public:
     void addPlayer(Player &);
     void deletePlayer(Player &);
     //Rounds
+    void addRound(Round &r);
+    void deleteRound(Round &r);
     LinkedList<GolfObject>* getRoundsByPlayer(int, Round*);
     LinkedList<GolfObject>* getRoundsByCourse(int, Round*);
     LinkedList<GolfObject>* getRoundByDateTime(string date, string time, Round*);

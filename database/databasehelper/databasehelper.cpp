@@ -222,6 +222,14 @@ void DatabaseHelper::addHole(Hole &h)
     insert(&full_string[0]);
 }
 
+void DatabaseHelper::deleteHole(Hole &h)
+{
+    int _id = h.getId();
+    std::string holeId = intToString(_id);
+    string query = string("DELETE FROM Hole WHERE h_Id = ") + holeId;
+    insert(&query[0]);
+}
+
  void DatabaseHelper::getHoleById(int id, Hole* h)
 {
     lList = new LinkedList<GolfObject>();
@@ -231,6 +239,47 @@ void DatabaseHelper::addHole(Hole &h)
     runQuery(&query[0], h);
     *h = *(Hole *)lList->get(0);
     delete lList;
+}
+
+void DatabaseHelper::addPlayedHole(PlayedHole &ph)
+{
+    int _gross = ph->getGross();
+    int _nett = ph->getNett();
+    int _points = ph->points();
+    int _r_id = ph->getRound()->getId();
+    int _h_id = ph->getHole().getId();
+    int _green = ph->isGreenHit();
+    int _fairway = ph->isFairwayHit();
+    int _sand = ph->isSandSave();
+    int _upAndDown = ph->isUpAndDown();
+    int _putts = ph->getPutts()
+
+    std::string gross = intToString(_gross);
+    std::string nett = intToString(_nett);
+    std::string points = intToString(_points);
+    std::string r_id = intToString(_r_id);
+    std::string h_id = intToString(_h_id);
+    std::string green = intToString(_green);
+    std::string fairway = intToString(_fairway);
+    std::string sand = intToString(_sand);
+    std::string upAndDown = intToString(_upAndDown);
+    std::string putts = intToString(_putts);
+
+    string query = "INSERT INTO PlayedHole(gross, nett, points, r_Id, h_Id, fairwayHit, greenHit, putts, sandSave, "
+                    "upAndDown) VALUES(";
+    string values = gross+ ", " + nett + ", " + points +", " +r_id+ ", " +h_id+ ", " +fairway+ ", " +
+                    green +", " +putts+ ", " +sand+ ", "+upAndDown+");";
+    string full_string = query+values;
+    cout << full_string << endl;
+    insert(&full_string[0]);
+}
+
+void DatabaseHelper::deletePlayedHole(PlayedHole &ph)
+{
+    int _id = ph.getId();
+    std::string ph_Id = intToString(_id);
+    string query = string("DELETE FROM PlayedHole WHERE ph_Id = ") + ph_Id;
+    insert(&query[0]);
 }
 
 LinkedList<GolfObject>* DatabaseHelper::getPlayedHolesByHole(int id, PlayedHole* ph)
@@ -310,6 +359,37 @@ void DatabaseHelper::deletePlayer(Player &p)
     convert << p.getId();
     string id = convert.str();
     string query = string("DELETE FROM Player WHERE p_Id = ") + id;
+    insert(&query[0]);
+}
+
+void DatabaseHelper::addRound(Round &r)
+{
+    int _gross = r.getGross();
+    int _nett = r.getNett();
+    int _points = r.getPoints();
+    int _pid = r.getPlayer()->getId();// might need to use '->'
+    int _gc_id = r.getCourse()->getId();
+
+    std::string gross = intToString(_gross);
+    std::string nett = intToString(_nett);
+    std::string points = intToString(_points);
+    std::string pid = intToString(_pid);
+    std::string gc_id = intToString(_gc_id);
+
+    string query = "INSERT INTO PlayedHole(date, time, gross, nett, points, weather, "
+                    "p_Id, gc_Id) VALUES(";
+    string values = "'"+r.getDate()+ "', '" + r.getTime() + "', " + gross +", " +nett+ ", " +
+                    points+ ", '" +r.getWeather()+ "', " + p_id +", " +gc_id+");";
+    string full_string = query+values;
+    cout << full_string << endl;
+    insert(&full_string[0]);
+}
+
+void DatabaseHelper::deleteRound(Round &r)
+{
+    int _id = r.getId();
+    std::string r_Id = intToString(_id);
+    string query = string("DELETE FROM Round WHERE r_Id = ") + r_Id;
     insert(&query[0]);
 }
 

@@ -58,6 +58,8 @@ TEST(Database, findHolesByCourse)
        dbh->addHole(h[i]);
     }
     std::string course_name = "Test GC";
+
+    //TODO: Probably should look at changing this to passing a GC object
     LinkedList<GolfObject>* l = dbh->getHolesByCourse(course_name, new Hole());
     ASSERT_EQ(3, l->getSize());
 
@@ -69,9 +71,50 @@ TEST(Database, findHolesByCourse)
         EXPECT_EQ(h[i].getShape(),((Hole *)l->get(i))->getShape());
     }
     dbh->deleteCourse(*gc);
+
+    for(int i = 0; i < 3; i++){
+        dbh->deleteHole(h[i]);
+    }
+}
+
+//getHoleById
+TEST(Database, getHoleById)
+{
+    GolfCourse *gc = new GolfCourse(1,72,74, "Test GC", "add line 1", "add line 2", "cf8sl0");
+    dbh->addCourse(*gc);
+    Hole *h = new Hole(1,1,4,3,300,1, "leg right");
+    dbh->addHole(*h);
+
+    LinkedList<GolfObject>* l = dbh->getHoleById(new Hole());
+
+    ASSERT_EQ(1, l->getSize());
+    ASSERT_EQ(h.getPar(), ((Hole *)l->get(i))->getPar());
+    ASSERT_EQ(h.getYards(), ((Hole *)l->get(i))->getYards());
+    ASSERT_EQ(h.getStrokeIndex(), ((Hole *)l->get(i))->getStrokeIndex());
+    ASSERT_EQ(h.getHoleNum(), ((Hole *)l->get(i))->getHoleNum());
+    EXPECT_EQ(h.getShape(),((Hole *)l->get(i))->getShape());
+
+    dbh->deleteCourse(*gc);
+    dbh->deleteHole(*h);
 }
 
 //getPlayedHolesByHole
+TEST(Database, getPlayedHolesByHole)
+{
+    //hole id will be 3 at this point
+    GolfCourse *gc = new GolfCourse(1,72,74, "Test GC", "add line 1", "add line 2", "cf8sl0");
+    dbh->addCourse(*gc);
+    Hole *h = new Hole(1,1,4,3,300,1, "leg right");
+    dbh->addHole(*h);
+
+    Player *me = new Player(3, "Ben", "Eyres", 10);
+    dbh->addPlayer(*me);
+
+    //create round for the played hole
+    Round *r = new Round("20-09-14", "11:01", 68, 66, 38, "Sunny", me, gc);
+
+    //create some played holes linked to hole
+}
 
 //getPlayedHolesByRound
 
@@ -91,7 +134,7 @@ TEST(Database, findHolesByCourse)
 
 //addCourse
 
-/*
+
 TEST(Database, addCourseToDatabase)
 {
     GolfCourse *c = new GolfCourse(1, 74, 72, "Test GC", "add line 1", "add line 2", "cf8sl0");
@@ -108,7 +151,7 @@ TEST(Database, addCourseToDatabase)
 
     delete c;
     delete pC;
-} */
+}
 //getCourseByAddress
 
 //getCourseByPar
