@@ -6,6 +6,9 @@
 #include <cstring>
 
 
+// TODO: Need to check if list is empty before we return any
+// query items
+
 using namespace std;
 
 LinkedList<GolfObject>* DatabaseHelper::lList;
@@ -218,7 +221,6 @@ void DatabaseHelper::addHole(Hole &h)
     string query = "INSERT INTO Hole(strokeIndex, par, yards, holeNum, shape, gc_id) VALUES(";
     string values = si+ ", " + par + ", " + yards +", " +holenum+ ", '" +h.getShape()+ "', " +gc_id+ ");";
     string full_string = query+values;
-    cout << full_string << endl;
     insert(&full_string[0]);
 }
 
@@ -243,16 +245,16 @@ void DatabaseHelper::deleteHole(Hole &h)
 
 void DatabaseHelper::addPlayedHole(PlayedHole &ph)
 {
-    int _gross = ph->getGross();
-    int _nett = ph->getNett();
-    int _points = ph->points();
-    int _r_id = ph->getRound()->getId();
-    int _h_id = ph->getHole().getId();
-    int _green = ph->isGreenHit();
-    int _fairway = ph->isFairwayHit();
-    int _sand = ph->isSandSave();
-    int _upAndDown = ph->isUpAndDown();
-    int _putts = ph->getPutts()
+    int _gross = ph.getGross();
+    int _nett = ph.getNett();
+    int _points = ph.getPoints();
+    int _r_id = ph.getRound()->getId();
+    int _h_id = ph.getHole()->getId();
+    int _green = ph.isGreenHit();
+    int _fairway = ph.isFairwayHit();
+    int _sand = ph.isSandSave();
+    int _upAndDown = ph.isUpAndDown();
+    int _putts = ph.getPutts();
 
     std::string gross = intToString(_gross);
     std::string nett = intToString(_nett);
@@ -270,7 +272,6 @@ void DatabaseHelper::addPlayedHole(PlayedHole &ph)
     string values = gross+ ", " + nett + ", " + points +", " +r_id+ ", " +h_id+ ", " +fairway+ ", " +
                     green +", " +putts+ ", " +sand+ ", "+upAndDown+");";
     string full_string = query+values;
-    cout << full_string << endl;
     insert(&full_string[0]);
 }
 
@@ -376,12 +377,11 @@ void DatabaseHelper::addRound(Round &r)
     std::string pid = intToString(_pid);
     std::string gc_id = intToString(_gc_id);
 
-    string query = "INSERT INTO PlayedHole(date, time, gross, nett, points, weather, "
+    string query = "INSERT INTO Round(date, time, gross, nett, stableford, weather, "
                     "p_Id, gc_Id) VALUES(";
     string values = "'"+r.getDate()+ "', '" + r.getTime() + "', " + gross +", " +nett+ ", " +
-                    points+ ", '" +r.getWeather()+ "', " + p_id +", " +gc_id+");";
+                    points+ ", '" +r.getWeather()+ "', " + pid +", " +gc_id+");";
     string full_string = query+values;
-    cout << full_string << endl;
     insert(&full_string[0]);
 }
 

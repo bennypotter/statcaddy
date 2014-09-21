@@ -144,7 +144,7 @@ void PlayedHole::makeFromQuery(int size, char** data, LinkedList<GolfObject>* g)
     int _putts = atoi(data[10]);
 
     PlayedHole* ph = new PlayedHole(atoi(data[0]), _gross, _nett, _points, new Hole(atoi(data[4])), new Round(atoi(data[5])), fairway, green, sand, _upAndDown, _putts);
-    g->addToHead(ph);
+    g->addToTail(ph);
 }
 
 bool PlayedHole::operator==(GolfObject* g)

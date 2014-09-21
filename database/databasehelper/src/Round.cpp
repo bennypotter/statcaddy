@@ -119,7 +119,7 @@ void Round::makeFromQuery(int size, char** data, LinkedList<GolfObject>* g)
     string _weather = data[6];
     Round* r = new Round(atoi(data[0]), _time, _date, _gross, _nett, _points,
              _weather, new Player(atoi(data[7])), new GolfCourse(atoi(data[8])));
-    g->addToHead(r);
+    g->addToTail(r);
 }
 
 bool Round::operator==(GolfObject *item)

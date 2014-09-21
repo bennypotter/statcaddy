@@ -30,6 +30,7 @@ TEST(Database, deletePlayerFromDatabase)
     EXPECT_EQ("", p->getFirstname());
     EXPECT_EQ("", p->getSurname());
     ASSERT_NE(10, p->getHandicap());
+    dbh->deletePlayer(*me);
     delete me;
 }
 
@@ -42,6 +43,7 @@ TEST(Database, findPlayerByName)
     ASSERT_EQ(1, l->getSize());
     EXPECT_EQ("Ben Eyres", ((Player *)l->get(0))->getFirstname() + " " + ((Player *)l->get(0))->getSurname());
     ASSERT_EQ(10, ((Player *)l->get(0))->getHandicap());
+    dbh->deletePlayer(*me);
     delete me;
 }
 
@@ -80,45 +82,214 @@ TEST(Database, findHolesByCourse)
 //getHoleById
 TEST(Database, getHoleById)
 {
-    GolfCourse *gc = new GolfCourse(1,72,74, "Test GC", "add line 1", "add line 2", "cf8sl0");
+    GolfCourse *gc = new GolfCourse(2,72,74, "Test GC", "add line 1", "add line 2", "cf8sl0");
     dbh->addCourse(*gc);
-    Hole *h = new Hole(1,1,4,3,300,1, "leg right");
+    Hole *h = new Hole(4,1,4,3,300,1, "leg right");
     dbh->addHole(*h);
 
-    LinkedList<GolfObject>* l = dbh->getHoleById(new Hole());
+    Hole *found = new Hole();
+    dbh->getHoleById(h->getId(), found);
 
-    ASSERT_EQ(1, l->getSize());
-    ASSERT_EQ(h.getPar(), ((Hole *)l->get(i))->getPar());
-    ASSERT_EQ(h.getYards(), ((Hole *)l->get(i))->getYards());
-    ASSERT_EQ(h.getStrokeIndex(), ((Hole *)l->get(i))->getStrokeIndex());
-    ASSERT_EQ(h.getHoleNum(), ((Hole *)l->get(i))->getHoleNum());
-    EXPECT_EQ(h.getShape(),((Hole *)l->get(i))->getShape());
+    ASSERT_EQ(h->getPar(), found->getPar());
+    ASSERT_EQ(h->getYards(), found->getYards());
+    ASSERT_EQ(h->getStrokeIndex(), found->getStrokeIndex());
+    ASSERT_EQ(h->getHoleNum(), found->getHoleNum());
+    EXPECT_EQ(h->getShape(),found->getShape());
 
     dbh->deleteCourse(*gc);
     dbh->deleteHole(*h);
 }
 
 //getPlayedHolesByHole
-TEST(Database, getPlayedHolesByHole)
+TEST(Database, findPlayedHolesByHole)
 {
     //hole id will be 3 at this point
-    GolfCourse *gc = new GolfCourse(1,72,74, "Test GC", "add line 1", "add line 2", "cf8sl0");
+    GolfCourse *gc = new GolfCourse(3,72,74, "Test GC", "add line 1", "add line 2", "cf8sl0");
     dbh->addCourse(*gc);
-    Hole *h = new Hole(1,1,4,3,300,1, "leg right");
+    Hole *h = new Hole(5,1,4,3,300,1, "leg right");
     dbh->addHole(*h);
 
-    Player *me = new Player(3, "Ben", "Eyres", 10);
+    Player *me = new Player(4, "Ben", "Eyres", 10);
     dbh->addPlayer(*me);
 
+    std::string date = "20-09-14";
+    std::string time = "11:01";
+    std::string weather = "Sunny";
+    int gross = 68;
+    int nett = 66;
+    int points = 38;
     //create round for the played hole
-    Round *r = new Round("20-09-14", "11:01", 68, 66, 38, "Sunny", me, gc);
+    Round *r = new Round(1, date, time, gross, nett, points, weather, me, gc);
 
     //create some played holes linked to hole
+    gross = 4;
+    nett = 3;
+    points = 3;
+    bool fairwayHit = true;
+    bool greenHit = true;
+    bool sandSave = false;
+    bool upAndDown = false;
+    int putts = 1;
+    PlayedHole ph[3];
+    int i = 0;
+    while(i < 3){
+        ph[i] = PlayedHole(i+1,gross, nett, points, h, r, fairwayHit, greenHit, sandSave, upAndDown, putts);
+        dbh->addPlayedHole(ph[i]);
+        //delete ph;
+        gross++;
+        nett++;
+        i++;
+    }
+
+    LinkedList<GolfObject>* l = dbh->getPlayedHolesByHole(h->getId(), new PlayedHole());
+    for(int j = 0; j < l->getSize(); j++){
+        ASSERT_EQ(ph[j].getId(), ((PlayedHole *)l->get(j))->getId());
+        ASSERT_EQ(ph[j].getGross(), ((PlayedHole *)l->get(j))->getGross());
+        ASSERT_EQ(ph[j].getNett(), ((PlayedHole *)l->get(j))->getNett());
+        ASSERT_EQ(ph[j].getPoints(), ((PlayedHole *)l->get(j))->getPoints());
+        ASSERT_EQ(ph[j].isFairwayHit(), ((PlayedHole *)l->get(j))->isFairwayHit());
+        ASSERT_EQ(ph[j].isGreenHit(), ((PlayedHole *)l->get(j))->isGreenHit());
+        ASSERT_EQ(ph[j].isSandSave(), ((PlayedHole *)l->get(j))->isSandSave());
+        ASSERT_EQ(ph[j].isUpAndDown(), ((PlayedHole *)l->get(j))->isUpAndDown());
+        ASSERT_EQ(ph[j].getPutts(), ((PlayedHole *)l->get(j))->getPutts());
+        ASSERT_EQ(ph[j].getHole()->getId(), ((PlayedHole *)l->get(j))->getHole()->getId());
+        ASSERT_EQ(ph[j].getRound()->getId(), ((PlayedHole *)l->get(j))->getRound()->getId());
+    }
+
+    //delete course, hole, round, playedHoles
+    dbh->deletePlayer(*me);
+    dbh->deleteCourse(*gc);
+    dbh->deleteHole(*h);
+    dbh->deleteRound(*r);
+
+    for(int j = 0; j < 3; j++){
+        dbh->deletePlayedHole(ph[j]);
+    }
+    delete me;
+    delete gc;
+    delete h;
+    delete r;
 }
 
 //getPlayedHolesByRound
+TEST(Database, findPlayedHolesByRound)
+{
+//hole id will be 3 at this point
+    GolfCourse *gc = new GolfCourse(4,72,74, "Test GC", "add line 1", "add line 2", "cf8sl0");
+    dbh->addCourse(*gc);
+    Hole *h = new Hole(6,1,4,3,300,1, "leg right");
+    dbh->addHole(*h);
+
+    Player *me = new Player(5, "Ben", "Eyres", 10);
+    dbh->addPlayer(*me);
+
+    std::string date = "20-09-14";
+    std::string time = "11:01";
+    std::string weather = "Sunny";
+    int gross = 68;
+    int nett = 66;
+    int points = 38;
+    //create round for the played hole
+    Round *r = new Round(2, date, time, gross, nett, points, weather, me, gc);
+
+    //create some played holes linked to hole
+    gross = 4;
+    nett = 3;
+    points = 3;
+    bool fairwayHit = true;
+    bool greenHit = true;
+    bool sandSave = false;
+    bool upAndDown = false;
+    int putts = 1;
+    PlayedHole ph[3];
+    int i = 0;
+    while(i < 3){
+        ph[i] = PlayedHole(i+4,gross, nett, points, h, r, fairwayHit, greenHit, sandSave, upAndDown, putts);
+        dbh->addPlayedHole(ph[i]);
+        //delete ph;
+        gross++;
+        nett++;
+        i++;
+    }
+
+    LinkedList<GolfObject>* l = dbh->getPlayedHolesByRound(r->getId(), new PlayedHole());
+    for(int j = 0; j < l->getSize(); j++){
+        ASSERT_EQ(ph[j].getId(), ((PlayedHole *)l->get(j))->getId());
+        ASSERT_EQ(ph[j].getGross(), ((PlayedHole *)l->get(j))->getGross());
+        ASSERT_EQ(ph[j].getNett(), ((PlayedHole *)l->get(j))->getNett());
+        ASSERT_EQ(ph[j].getPoints(), ((PlayedHole *)l->get(j))->getPoints());
+        ASSERT_EQ(ph[j].isFairwayHit(), ((PlayedHole *)l->get(j))->isFairwayHit());
+        ASSERT_EQ(ph[j].isGreenHit(), ((PlayedHole *)l->get(j))->isGreenHit());
+        ASSERT_EQ(ph[j].isSandSave(), ((PlayedHole *)l->get(j))->isSandSave());
+        ASSERT_EQ(ph[j].isUpAndDown(), ((PlayedHole *)l->get(j))->isUpAndDown());
+        ASSERT_EQ(ph[j].getPutts(), ((PlayedHole *)l->get(j))->getPutts());
+        ASSERT_EQ(ph[j].getHole()->getId(), ((PlayedHole *)l->get(j))->getHole()->getId());
+        ASSERT_EQ(ph[j].getRound()->getId(), ((PlayedHole *)l->get(j))->getRound()->getId());
+    }
+
+    //delete course, hole, round, playedHoles
+    dbh->deletePlayer(*me);
+    dbh->deleteCourse(*gc);
+    dbh->deleteHole(*h);
+    dbh->deleteRound(*r);
+
+    for(int j = 0; j < 3; j++){
+        dbh->deletePlayedHole(ph[j]);
+    }
+    delete me;
+    delete gc;
+    delete h;
+    delete r;
+}
 
 //getRoundsByPlayer
+TEST(Database, findRoundsByCourse)
+{
+    GolfCourse *gc = new GolfCourse(5,72,74, "Test GC", "add line 1", "add line 2", "cf8sl0");
+    dbh->addCourse(*gc);
+
+    Player *me = new Player(6, "Ben", "Eyres", 10);
+    dbh->addPlayer(*me);
+
+    Round *r = new Round[2];
+
+    std::string date = "20-09-14";
+    std::string time = "11:01";
+    std::string weather = "Sunny";
+    int gross = 68;
+    int nett = 66;
+    int points = 38;
+    //create round for the played hole
+    r[0] = Round(1, date, time, gross, nett, points, weather, me, gc);
+    dbh->addRound(r[0]);
+
+    date = "21-09-14";
+    time = "10:32";
+    r[1] = Round(2, date, time, gross, nett, points, weather, me, gc);
+    dbh->addRound(r[1]);
+
+    LinkedList<GolfObject>* l = dbh->getRoundsByCourse(gc->getId(), new Round());
+    ASSERT_EQ(2, l->getSize());
+    for(int i = 0; i < l->getSize(); i++){
+        ASSERT_EQ(r[i].getId(), ((Round *)l->get(i))->getId());
+        EXPECT_EQ(r[i].getDate(), ((Round *)l->get(i))->getDate());
+        EXPECT_EQ(r[i].getTime(), ((Round *)l->get(i))->getTime());
+        ASSERT_EQ(r[i].getGross(), ((Round *)l->get(i))->getGross());
+        ASSERT_EQ(r[i].getNett(), ((Round *)l->get(i))->getNett());
+        EXPECT_EQ(r[i].getWeather(), ((Round *)l->get(i))->getWeather());
+        ASSERT_EQ(r[i].getCourse()->getId(), ((Round *)l->get(i))->getCourse()->getId());
+    }
+    dbh->deletePlayer(*me);
+    dbh->deleteCourse(*gc);
+
+
+    for(int i = 0; i < 2; i++){
+        dbh->deleteRound(r[i]);
+    }
+
+    delete me;
+    delete gc;
+}
 
 //getRoundsByCourse
 
@@ -137,12 +308,12 @@ TEST(Database, getPlayedHolesByHole)
 
 TEST(Database, addCourseToDatabase)
 {
-    GolfCourse *c = new GolfCourse(1, 74, 72, "Test GC", "add line 1", "add line 2", "cf8sl0");
+    GolfCourse *c = new GolfCourse(6, 72, 74, "Test GC", "add line 1", "add line 2", "cf8sl0");
     dbh->addCourse(*c);
     GolfCourse *pC = new GolfCourse();
-    dbh->getCourseById(1, pC);
-    ASSERT_EQ(74, pC->getStrokeIndex());
-    ASSERT_EQ(72, pC->getPar());
+    dbh->getCourseById(c->getId(), pC);
+    ASSERT_EQ(c->getStrokeIndex(), pC->getStrokeIndex());
+    ASSERT_EQ(c->getPar(), pC->getPar());
     EXPECT_EQ(c->getName(), pC->getName());
     EXPECT_EQ(c->getAddL1(), pC->getAddL1());
     EXPECT_EQ(c->getAddL2(), pC->getAddL2());

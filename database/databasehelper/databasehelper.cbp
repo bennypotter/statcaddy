@@ -16,12 +16,29 @@
 				<Compiler>
 					<Add option="-Wall" />
 					<Add option="-g" />
+					<Add directory="../../../../../../usr/include" />
+					<Add directory="../databasehelper" />
+					<Add directory="include" />
 				</Compiler>
 			</Target>
 		</Build>
-		<Unit filename="main.c">
-			<Option compilerVar="CC" />
-		</Unit>
+		<Unit filename="databasehelper.cpp" />
+		<Unit filename="databasehelper.h" />
+		<Unit filename="include/GolfCourse.h" />
+		<Unit filename="include/GolfObject.h" />
+		<Unit filename="include/Hole.h" />
+		<Unit filename="include/LinkedList.h" />
+		<Unit filename="include/PlayedHole.h" />
+		<Unit filename="include/Player.h" />
+		<Unit filename="include/Round.h" />
+		<Unit filename="include/Shot.h" />
+		<Unit filename="src/GolfCourse.cpp" />
+		<Unit filename="src/GolfObject.cpp" />
+		<Unit filename="src/Hole.cpp" />
+		<Unit filename="src/PlayedHole.cpp" />
+		<Unit filename="src/Player.cpp" />
+		<Unit filename="src/Round.cpp" />
+		<Unit filename="src/Shot.cpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />
