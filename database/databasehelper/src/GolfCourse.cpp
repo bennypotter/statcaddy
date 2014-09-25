@@ -59,7 +59,7 @@ string GolfCourse::getPostcode()
 void GolfCourse::makeFromQuery(int size, char** data, LinkedList<GolfObject>* g)
 {
     GolfCourse* gc = new GolfCourse(atoi(data[0]), atoi(data[1]), atoi(data[2]), data[3], data[4], data[5], data[6]);
-    g->addToHead(gc);
+    g->addToTail(gc);
     /*
     cout << "AT GolfCourse" << endl;
     cout << "Hole ID = " << temp->getId() << endl;

@@ -57,7 +57,7 @@ public:
     LinkedList<GolfObject>* getCourseByAddress(string, string, string, GolfCourse*);
     LinkedList<GolfObject>* getCoursesByPar(int, GolfCourse*);
     void getCourseByName(string, GolfCourse*);
-    LinkedList<GolfObject>* getCourseList(GolfCourse*gc);
+    LinkedList<GolfObject>* getCourseList(GolfCourse* gc);
     void getCourseById(int, GolfCourse*);
 
     sqlite3* db;
